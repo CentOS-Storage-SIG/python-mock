@@ -1,12 +1,12 @@
-%if 0%{?fedora} > 12 || 0%{?rhel} > 6
-%global with_python3 0
+%if 0%{?fedora} > 12 || 0%{?epel} > 6
+%global with_python3 1
 %endif
 
 %global mod_name mock
 
 Name:           python-mock
 Version:        1.0.1
-Release:        5%{?dist}
+Release:        7.1%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 Group:          Development/Libraries
@@ -18,7 +18,9 @@ Source1:        LICENSE.txt
 BuildArch:      noarch
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
+%if 0%{?rhel} <= 6
 BuildRequires:  python-unittest2
+%endif
 
 %if 0%{?with_python3}
 BuildRequires:  python3-devel
@@ -98,9 +100,17 @@ popd
 
 
 %changelog
-* Thu Sep 18 2014 Praveen Kumar <kumarparaveen.nitdgp@gmail.com> 1.0.1-5
-- Rebuild for RHEL-7
-- Disable python3 features
+* Fri Feb 12 2016 Sandro Bonazzola <sbonazzo@redhat.com> - 1.0.1-7.1
+- Build python3 only on EPEL. Python 3 is not available in CBS
+
+* Mon Nov 02 2015 Praveen Kumar <kumarpraveen.nitdgp@gmail.com> 1.0.1-7
+- Fix #1276771
+
+* Wed Sep 23 2015 Robert Kuska <rkuska@redhat.com> - 1.0.1-6
+- Rebuilt for Python3.5 rebuild
+
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
